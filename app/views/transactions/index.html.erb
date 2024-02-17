@@ -12,3 +12,20 @@ Balance for Evan: 1164 KC
 Balance for Anthony: 1456 KC
 Balance for Krystina: 3516 KC 
 -->
+
+<p>Transactions</p>
+
+<ol>
+  <% for transaction in Transaction.all %>
+   <% from_name = User.find_by({ "id" => transaction["from_user_id"] }) %>
+   <% to_name = User.find_by({ "id" => transaction["to_user_id"] }) %>
+
+  <li>
+   <% if from_name %>
+    <%= transaction["amount"] %> from <%= from_name["name"] %> to <%= to_name["name"] %> 
+   <% else %>
+    ICO: <%= transaction["amount"] %> to <%= to_name["name"] %>
+   <% end %>
+  </li>
+  <% end %>
+</ol>
