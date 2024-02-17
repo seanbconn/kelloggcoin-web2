@@ -29,3 +29,18 @@ Balance for Krystina: 3516 KC
   </li>
   <% end %>
 </ol>
+
+
+<p>Balances</p>
+
+  <% for user in User.all %>
+    <%
+      balance = 0
+      balance = balance + Transaction.where({ "to_user_id" => user["id"] }).sum("amount")
+      balance = balance - Transaction.where({ "from_user_id" => user["id"] }).sum("amount")
+    %>
+
+  <ul>
+    <li> Balance for <%= user["name"] %>: <%= balance%> Kellogg Coin </li>
+
+  <% end %>
